@@ -6,10 +6,12 @@ Streamlit session submits coroutines to it with `run(...)`.
 """
 import asyncio
 import logging
+import os
 import threading
 
 import streamlit as st
 from fastapi import HTTPException
+from pydantic import ValidationError
 
 from app import db
 from app.services import scheduler
@@ -38,9 +40,32 @@ class Runtime:
         return asyncio.run_coroutine_threadsafe(coro, self.loop).result(timeout)
 
 
+def load_secrets_into_env() -> None:
+    """On Streamlit Cloud, settings live in the app's Secrets (not a .env file).
+    Copy top-level secrets into environment variables, where app.config reads them."""
+    try:
+        secrets = {k: v for k, v in st.secrets.items() if isinstance(v, (str, int, float, bool))}
+    except Exception:  # no secrets.toml locally – the .env file is used instead
+        return
+    for key, value in secrets.items():
+        os.environ.setdefault(key.upper(), str(value))
+
+
 @st.cache_resource(show_spinner="Starting FoodBridge…")
 def get_runtime() -> Runtime:
     return Runtime()
+
+
+def start() -> Runtime:
+    """Start (or reuse) the runtime; show a readable message if configuration is missing."""
+    load_secrets_into_env()
+    try:
+        return get_runtime()
+    except ValidationError as exc:
+        missing = ", ".join(str(e["loc"][0]).upper() for e in exc.errors())
+        st.error(f"⚙️ Missing configuration: **{missing}**. Locally, add it to the `.env` file. "
+                 "On Streamlit Cloud, add it under **App settings → Secrets**, then reboot the app.")
+        st.stop()
 
 
 def run(coro):

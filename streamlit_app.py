@@ -8,10 +8,10 @@ st.set_page_config(page_title="FoodBridge", page_icon="🍲", layout="wide")
 
 from app.ui import style  # noqa: E402  (set_page_config must run first)
 from app.ui.pages import admin, auth, donor, ngo  # noqa: E402
-from app.ui.runtime import get_runtime  # noqa: E402
+from app.ui.runtime import start  # noqa: E402
 
 style.inject_css()
-get_runtime()
+start()
 
 user = auth.current_user()
 if user is None:
