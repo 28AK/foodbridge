@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Surplus food shouldn't go to waste.</h1>
+  <p class="tagline">FoodBridge connects restaurants, hotels, households and events with nearby NGOs,
+    shelters and community kitchens — using AI to check food freshness and match it to the right place in time.</p>
+  <div class="actions">
+    <a class="btn" href="/register">Get started</a>
+    <a class="btn btn-outline" href="/login">Log in</a>
+  </div>
+</section>
+
+<section class="grid-3">
+  <div class="card"><h3>📸 List surplus food</h3><p>Donors upload a photo; images are auto-enhanced with OpenCV.</p></div>
+  <div class="card"><h3>🧠 AI freshness check</h3><p>A CNN classifies food type and estimates spoilage risk.</p></div>
+  <div class="card"><h3>📍 Smart matching</h3><p>Nearest NGO with capacity and demand gets an instant alert.</p></div>
+</section>
+
+<div class="card muted-card">
+  <strong>System status:</strong> <span id="status">Checking…</span>
+  <span id="counts" class="small"></span>
+  · <a href="/docs">API docs</a>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', path='js/main.js') }}"></script>
+{% endblock %}

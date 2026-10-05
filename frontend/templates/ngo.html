@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}NGO Dashboard · FoodBridge{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endblock %}
+{% block container_class %}wide{% endblock %}
+{% block content %}
+<h1 id="ngo-name">NGO Dashboard</h1>
+<div id="unverified" class="banner" hidden>
+  ⏳ Your organisation is awaiting verification by an admin. You'll start receiving food matches once verified.
+</div>
+
+<div class="grid-3">
+  <div class="card stat">
+    <span class="small">Received today</span>
+    <b id="stat-received">–</b>
+    <div class="meter"><div class="meter-fill risk-bg-low" id="capacity-meter" style="width:0%"></div></div>
+    <span class="small" id="stat-capacity"></span>
+  </div>
+  <div class="card stat">
+    <span class="small">Still needed today</span>
+    <b id="stat-unmet">–</b>
+    <form id="demand-form" class="inline-form">
+      <label class="small">Meals needed today <input type="number" name="current_demand" min="0" max="10000" required></label>
+      <button class="btn btn-small" type="submit">Update</button>
+    </form>
+  </div>
+  <div class="card stat">
+    <span class="small">Pickups</span>
+    <b id="stat-pickups">–</b>
+    <span class="small" id="stat-pickups-detail"></span>
+  </div>
+</div>
+
+<div class="grid-2">
+  <section class="card">
+    <h2>Pickup route</h2>
+    <div id="map" class="map tall"></div>
+    <div id="route-summary" class="small"></div>
+  </section>
+
+  <section>
+    <div class="card"><h2>🔔 New matches</h2><div id="new-matches"></div></div>
+    <div class="card"><h2>🚐 To collect</h2><div id="to-collect"></div></div>
+    <div class="card"><h2>📦 Picked up – deliver to kitchen</h2><div id="in-transit"></div></div>
+    <div class="card"><h2>✅ Delivered</h2><div id="history"></div></div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', path='js/ngo.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,45 @@
+# FoodBridge – Smart Surplus Food Redistribution & Wastage Reduction Platform
+# Python 3.11  (conda env: foodbridge)
+# Install:  pip install -r requirements.txt
+#
+# CPU-only PyTorch builds. On Linux servers (Streamlit Cloud, Docker) this avoids
+# ~2.5 GB of unused GPU libraries; on macOS it is the normal build.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# ---------- Web app (Streamlit UI) ----------
+streamlit==1.65.0
+streamlit-folium==0.27.4       # interactive Leaflet maps inside Streamlit
+folium==0.20.0                 # Leaflet.js map builder
+
+# ---------- REST API (FastAPI) – same services, optional second interface ----------
+fastapi==0.142.2
+uvicorn[standard]==0.54.0      # ASGI server; [standard] includes WebSocket support
+python-multipart==0.0.32       # photo uploads via forms
+jinja2==3.1.6                  # HTML templates
+
+# ---------- Database (MongoDB Atlas) ----------
+pymongo==4.18.2                # async driver + GridFS photo storage (includes mongodb+srv:// support)
+
+# ---------- Config & validation ----------
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-dotenv==1.2.4           # reads .env locally
+
+# ---------- Authentication ----------
+bcrypt==5.0.0                  # password hashing
+pyjwt==2.15.1                  # API login tokens
+
+# ---------- AI: pretrained CLIP (food type, freshness, quantity) ----------
+# torch and torchvision MUST be matching versions, otherwise torchvision fails to load
+torch==2.14.1
+torchvision==0.29.1
+transformers==5.18.0
+
+# ---------- Computer vision (image preprocessing) ----------
+opencv-python-headless==5.0.0.93
+numpy==2.4.6
+pillow==12.3.0
+
+# ---------- Testing ----------
+pytest==9.1.1
+httpx==0.28.1

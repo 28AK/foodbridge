@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Register · FoodBridge{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endblock %}
+{% block container_class %}narrow{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Create an account</h2>
+  <form id="register-form" class="form">
+    <div class="role-toggle">
+      <label><input type="radio" name="role" value="donor" checked> I want to <b>donate</b> food</label>
+      <label><input type="radio" name="role" value="ngo"> We <b>receive</b> food (NGO / shelter)</label>
+    </div>
+
+    <label><span data-label-for="donor">Your / business name</span><span data-label-for="ngo" hidden>Organisation name</span>
+      <input name="name" required minlength="2" maxlength="100"></label>
+    <label>Email <input type="email" name="email" required autocomplete="email"></label>
+    <label>Phone (for SMS alerts) <input name="phone" required minlength="10" maxlength="15" placeholder="+91XXXXXXXXXX"></label>
+    <label>Password <input type="password" name="password" required minlength="6" autocomplete="new-password"></label>
+
+    <div id="donor-fields">
+      <label>Donor type
+        <select name="donor_type">
+          <option value="household">Household</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="hotel">Hotel</option>
+          <option value="caterer">Catering service</option>
+          <option value="event">Event / venue</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="ngo-fields" hidden>
+      <label>Organisation type
+        <select name="org_type">
+          <option value="ngo">NGO</option>
+          <option value="shelter">Shelter</option>
+          <option value="community_kitchen">Community kitchen</option>
+        </select>
+      </label>
+      <label>Daily capacity (meals) <input type="number" name="capacity_meals" min="1" max="10000"></label>
+      <label class="checkbox"><input type="checkbox" name="veg_only"> We accept vegetarian food only</label>
+      <label>Address <input name="address" maxlength="200"></label>
+      <div class="map-label">Location — click the map or
+        <button type="button" class="btn-link" id="locate-btn">use my location</button></div>
+      <div id="map" class="map"></div>
+      <input type="hidden" name="lat"><input type="hidden" name="lng">
+    </div>
+
+    <p class="error" id="error" hidden></p>
+    <button class="btn" type="submit">Create account</button>
+  </form>
+  <p class="small">Already registered? <a href="/login">Log in</a></p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', path='js/map.js') }}"></script>
+<script src="{{ url_for('static', path='js/auth.js') }}"></script>
+{% endblock %}

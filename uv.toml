@@ -1,0 +1,4 @@
+# uv (used by Streamlit Community Cloud to install requirements.txt):
+# pick the newest version of each package from PyPI *and* the PyTorch CPU index,
+# instead of taking old copies of common packages from the PyTorch index.
+index-strategy = "unsafe-best-match"

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Admin · FoodBridge{% endblock %}
+{% block container_class %}wide{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="card">
+  <h2>Organisations</h2>
+  <p class="small">Only verified NGOs, shelters and community kitchens receive food matches.</p>
+  <div id="ngos"><p class="small">Loading…</p></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', path='js/admin.js') }}"></script>
+{% endblock %}

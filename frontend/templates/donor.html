@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Donor Dashboard · FoodBridge{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+{% endblock %}
+{% block container_class %}wide{% endblock %}
+{% block content %}
+<h1>Donor Dashboard</h1>
+
+<div class="grid-2">
+  <section class="card">
+    <h2>List surplus food</h2>
+    <form id="listing-form" class="form">
+      <label>Food name <input name="food_name" required minlength="2" maxlength="100" placeholder="e.g. Veg biryani"></label>
+      <div class="row">
+        <label>Category
+          <select name="food_category" required>
+            <option value="veg">Vegetarian</option>
+            <option value="non_veg">Non-vegetarian</option>
+          </select>
+        </label>
+        <label>Servings (approx.) <input type="number" name="quantity_servings" min="1" max="5000" required></label>
+      </div>
+      <label>Prepared at <input type="datetime-local" name="prepared_at" required></label>
+      <label>Description <textarea name="description" maxlength="500" rows="2" placeholder="Optional details"></textarea></label>
+
+      <label>Photo of the food
+        <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="environment" required>
+      </label>
+      <img id="photo-preview" class="photo-preview" alt="" hidden>
+      <div id="ai-preview" class="ai-box" hidden></div>
+
+      <label>Pickup address <input name="address" required minlength="5" maxlength="200"></label>
+      <div class="map-label">Pickup location — click the map or
+        <button type="button" class="btn-link" id="locate-btn">use my location</button></div>
+      <div id="map" class="map"></div>
+      <input type="hidden" name="lat"><input type="hidden" name="lng">
+
+      <label>Pickup notes <input name="pickup_notes" maxlength="300" placeholder="e.g. Ask for the manager at the back gate"></label>
+
+      <p class="error" id="error" hidden></p>
+      <button class="btn" type="submit" id="submit-btn">Submit listing</button>
+    </form>
+  </section>
+
+  <section>
+    <div class="card" id="result" hidden>
+      <h2 id="result-title"></h2>
+      <div id="result-ai"></div>
+      <p class="small">Image preprocessing pipeline (OpenCV):</p>
+      <div class="pipeline">
+        <figure><img id="img-original" alt="Original"><figcaption>Original</figcaption></figure>
+        <figure><img id="img-processed" alt="Enhanced"><figcaption>Enhanced</figcaption></figure>
+        <figure><img id="img-model" alt="Model input"><figcaption>AI input 224×224</figcaption></figure>
+      </div>
+      <table class="report" id="report"></table>
+    </div>
+
+    <div class="card">
+      <h2>My listings</h2>
+      <div id="listings"><p class="small">Loading…</p></div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', path='js/map.js') }}"></script>
+<script src="{{ url_for('static', path='js/donor.js') }}"></script>
+{% endblock %}

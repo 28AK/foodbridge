@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Annapurna Seva Kendra",
+    "type": "community_kitchen",
+    "area": "Hazratganj",
+    "address": "Near GPO, Hazratganj, Lucknow",
+    "lat": 26.8500, "lng": 80.9462,
+    "capacity_meals": 300, "current_demand": 180, "veg_only": true,
+    "phone": "+919000000001", "email": "annapurna@foodbridge.local"
+  },
+  {
+    "name": "Roti Ghar Foundation",
+    "type": "ngo",
+    "area": "Gomti Nagar",
+    "address": "Vibhuti Khand, Gomti Nagar, Lucknow",
+    "lat": 26.8560, "lng": 81.0040,
+    "capacity_meals": 250, "current_demand": 120, "veg_only": false,
+    "phone": "+919000000002", "email": "rotighar@foodbridge.local"
+  },
+  {
+    "name": "Ashray Night Shelter",
+    "type": "shelter",
+    "area": "Charbagh",
+    "address": "Near Railway Station, Charbagh, Lucknow",
+    "lat": 26.8320, "lng": 80.9200,
+    "capacity_meals": 150, "current_demand": 140, "veg_only": false,
+    "phone": "+919000000003", "email": "ashray@foodbridge.local"
+  },
+  {
+    "name": "Sahyog Community Kitchen",
+    "type": "community_kitchen",
+    "area": "Aliganj",
+    "address": "Sector H, Aliganj, Lucknow",
+    "lat": 26.8930, "lng": 80.9410,
+    "capacity_meals": 200, "current_demand": 90, "veg_only": true,
+    "phone": "+919000000004", "email": "sahyog@foodbridge.local"
+  },
+  {
+    "name": "Umeed Children's Home",
+    "type": "shelter",
+    "area": "Indira Nagar",
+    "address": "Sector 14, Indira Nagar, Lucknow",
+    "lat": 26.8790, "lng": 80.9990,
+    "capacity_meals": 120, "current_demand": 100, "veg_only": true,
+    "phone": "+919000000005", "email": "umeed@foodbridge.local"
+  },
+  {
+    "name": "Bhojan Bank Lucknow",
+    "type": "ngo",
+    "area": "Alambagh",
+    "address": "Near Bus Stand, Alambagh, Lucknow",
+    "lat": 26.8130, "lng": 80.9030,
+    "capacity_meals": 400, "current_demand": 260, "veg_only": false,
+    "phone": "+919000000006", "email": "bhojanbank@foodbridge.local"
+  },
+  {
+    "name": "Seva Sadan Old Age Home",
+    "type": "shelter",
+    "area": "Mahanagar",
+    "address": "Sector C, Mahanagar, Lucknow",
+    "lat": 26.8720, "lng": 80.9590,
+    "capacity_meals": 80, "current_demand": 60, "veg_only": true,
+    "phone": "+919000000007", "email": "sevasadan@foodbridge.local"
+  },
+  {
+    "name": "Daan Setu Trust",
+    "type": "ngo",
+    "area": "Chinhat",
+    "address": "Faizabad Road, Chinhat, Lucknow",
+    "lat": 26.8800, "lng": 81.0480,
+    "capacity_meals": 220, "current_demand": 150, "veg_only": false,
+    "phone": "+919000000008", "email": "daansetu@foodbridge.local"
+  },
+  {
+    "name": "Prerna Women's Shelter",
+    "type": "shelter",
+    "area": "Jankipuram",
+    "address": "Sector F, Jankipuram, Lucknow",
+    "lat": 26.9300, "lng": 80.9420,
+    "capacity_meals": 100, "current_demand": 70, "veg_only": false,
+    "phone": "+919000000009", "email": "prerna@foodbridge.local"
+  },
+  {
+    "name": "Langar Seva Samiti",
+    "type": "community_kitchen",
+    "area": "Aminabad",
+    "address": "Aminabad Market Road, Lucknow",
+    "lat": 26.8460, "lng": 80.9250,
+    "capacity_meals": 350, "current_demand": 200, "veg_only": true,
+    "phone": "+919000000010", "email": "langar@foodbridge.local"
+  }
+]

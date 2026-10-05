@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FoodBridge{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">🍲 FoodBridge</a>
+    <nav id="nav"></nav>
+  </header>
+  <main class="container {% block container_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="{{ url_for('static', path='js/api.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

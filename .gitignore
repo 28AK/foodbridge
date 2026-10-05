@@ -1,0 +1,33 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Data & model artifacts
+uploads/*
+!uploads/.gitkeep
+ml/datasets/
+models/*.keras
+models/*.h5
+models/*.tflite
+!models/.gitkeep
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Claude Code settings
+.claude/
+
+# Sample test photos (Wikimedia Commons / Food-101, various licenses)
+data/sample_photos/
+
+# Project documents (synopsis etc.) – keep out of the public Space
+*.docx

@@ -1,0 +1,18 @@
+# Secrets – supplied as Hugging Face Space secrets instead
+.env
+.env.*
+
+# Not needed in the image
+.git/
+.claude/
+.vscode/
+.idea/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+tests/
+uploads/
+models/
+data/sample_photos/
+*.docx
+.DS_Store
