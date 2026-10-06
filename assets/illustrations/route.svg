@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" stroke="#3E6650" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M60 110 L150 80 L250 110 L340 80 V290 L250 320 L150 290 L60 320 Z" fill="#FFFFFF"/>
+  <path d="M150 80 V290 M250 110 V320" stroke-width="2" opacity=".5"/>
+  <path d="M60 200 C110 190 120 230 170 220 S240 160 300 180" stroke="#F1ECE3" stroke-width="14"/>
+  <path d="M104 250 C140 236 150 200 196 196 C240 192 250 150 290 140" stroke="#D2553B" stroke-width="2.5" stroke-dasharray="3 9"/>
+  <circle cx="104" cy="250" r="14" fill="#1DAA55" stroke="#FFFFFF" stroke-width="4"/>
+  <circle cx="196" cy="196" r="10" fill="#3E6650" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M290 92 C272 92 260 106 260 122 C260 144 290 168 290 168 C290 168 320 144 320 122 C320 106 308 92 290 92 Z" fill="#FFFFFF"/>
+  <path transform="translate(290 112) scale(0.7)" d="M0 6 C-8 -4 -20 4 -12 14 L0 26 L12 14 C20 4 8 -4 0 6 Z" fill="#D2553B" stroke="none"/>
+  <g transform="translate(40 340) rotate(-20) scale(0.7)"><path d="M0 0 C10 -16 30 -18 38 -12 C30 4 12 8 0 0 Z" fill="#1DAA55" stroke="none" opacity=".9"/><path d="M2 -1 C14 -8 24 -11 34 -12" stroke="#FFFFFF" stroke-width="1.6"/></g>
+</svg>

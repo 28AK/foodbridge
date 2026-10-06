@@ -1,10 +1,10 @@
 [theme]
 base = "light"
-primaryColor = "#2E7D32"
-backgroundColor = "#F8FBF6"
-secondaryBackgroundColor = "#EEF5EA"
-textColor = "#1F2A1F"
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+primaryColor = "#3E6650"
+backgroundColor = "#FAF6F0"
+secondaryBackgroundColor = "#F1ECE3"
+textColor = "#24332B"
+font = "Montserrat:https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
 
 [server]
 maxUploadSize = 8   # MB, matches the API limit

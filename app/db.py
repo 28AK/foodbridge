@@ -9,6 +9,7 @@ USERS = "users"
 NGOS = "ngos"
 LISTINGS = "listings"
 NOTIFICATIONS = "notifications"
+CONTACT_MESSAGES = "contact_messages"
 
 _client: AsyncMongoClient | None = None
 
@@ -46,3 +47,4 @@ async def ensure_indexes() -> None:
     await db[LISTINGS].create_index([("matched_ngo_id", ASCENDING), ("status", ASCENDING)])
     await db[LISTINGS].create_index([("status", ASCENDING), ("pickup_deadline", ASCENDING)])
     await db[NOTIFICATIONS].create_index([("recipient_id", ASCENDING), ("created_at", DESCENDING)])
+    await db[CONTACT_MESSAGES].create_index([("status", ASCENDING), ("created_at", DESCENDING)])

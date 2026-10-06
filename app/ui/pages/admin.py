@@ -5,7 +5,7 @@ import folium
 import streamlit as st
 
 from app.db import LISTINGS, get_db
-from app.services import ngo_ops
+from app.services import ngo_ops, notify, public_ops
 from app.ui import style
 from app.ui.components import pin, show_map
 from app.ui.runtime import run, try_run
@@ -66,3 +66,57 @@ def page() -> None:
                              type="secondary" if ngo["verified"] else "primary"):
                 try_run(ngo_ops.set_verified(ngo["_id"], not ngo["verified"]))
                 st.rerun()
+
+    st.write("")
+    messages_inbox()
+    st.write("")
+    sms_log()
+
+
+def messages_inbox() -> None:
+    messages = run(public_ops.contact_messages())
+    new = sum(m["status"] == "new" for m in messages)
+    with st.container(border=True):
+        st.subheader(f"✉️ Contact messages ({new} new)", anchor=False)
+        if not messages:
+            st.caption("No messages yet. Messages sent from the Contact page appear here.")
+            return
+        show_all = st.toggle("Show already-read messages", value=False)
+        for m in messages:
+            if m["status"] != "new" and not show_all:
+                continue
+            with st.container(border=True):
+                info, action = st.columns([5, 1])
+                badge = '<span class="fb-badge pending">New</span>' if m["status"] == "new" else ""
+                with info:
+                    style.html(
+                        f'<div><b>{escape(m["subject"])}</b> {badge}<br>'
+                        f'<span class="fb-muted">{escape(m["name"])} · '
+                        f'<a href="mailto:{escape(m["email"])}">{escape(m["email"])}</a> · '
+                        f'{style.fmt_dt(m["created_at"])}</span>'
+                        f'<p style="margin:8px 0 0;white-space:pre-wrap">{escape(m["message"])}</p></div>')
+                if m["status"] == "new" and action.button("Mark read", key=f"read_{m['_id']}"):
+                    run(public_ops.mark_message(m["_id"], "read"))
+                    st.rerun()
+
+
+SMS_BADGES = {"sent": "verified", "logged": "listed", "mock": "listed", "failed": "rejected"}
+
+
+def sms_row(m: dict) -> str:
+    error = f'<br><span class="fb-muted">{escape(m["error"])}</span>' if m.get("error") else ""
+    return (f'<tr><td class="fb-muted">{style.fmt_dt(m["created_at"])}</td><td>{escape(m["to"])}</td>'
+            f'<td><span class="fb-badge {SMS_BADGES.get(m["status"], "listed")}">{m["status"]}</span></td>'
+            f'<td>{escape(m["body"])}{error}</td></tr>')
+
+
+def sms_log() -> None:
+    with st.container(border=True):
+        st.subheader("🔔 Alerts", anchor=False)
+        st.caption("Last 50 alerts · recorded only — SMS delivery is not connected yet")
+        messages = run(notify.recent())
+        if not messages:
+            st.caption("No alerts yet. They are created when food is matched, accepted and delivered.")
+            return
+        rows = "".join(sms_row(m) for m in messages)
+        style.html(f'<table class="fb-table"><tr><th>When</th><th>To</th><th>Status</th><th>Message</th></tr>{rows}</table>')

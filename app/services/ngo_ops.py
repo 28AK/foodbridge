@@ -5,6 +5,7 @@ from bson import ObjectId
 from fastapi import HTTPException, status
 
 from app.db import LISTINGS, NGOS, get_db
+from app.services import notify
 from app.services.geo import lat_lng
 from app.services.lifecycle import transition
 from app.services.matching import release_and_rematch, todays_load
@@ -56,7 +57,7 @@ async def _my_listing(ngo: dict, listing_id: ObjectId) -> dict:
 
 async def accept(ngo: dict, listing_id: ObjectId) -> dict:
     listing = await _my_listing(ngo, listing_id)
-    return await transition(
+    updated = await transition(
         get_db(),
         {"_id": listing["_id"], "status": "matched", "matched_ngo_id": ngo["_id"],
          "match.accepted_at": None},
@@ -64,6 +65,8 @@ async def accept(ngo: dict, listing_id: ObjectId) -> dict:
         extra_set={"match.accepted_at": datetime.now(timezone.utc)},
         error="This match can no longer be accepted",
     )
+    await notify.on_accepted(updated, ngo)
+    return updated
 
 
 async def decline(ngo: dict, listing_id: ObjectId) -> bool:
@@ -87,12 +90,14 @@ async def picked_up(ngo: dict, listing_id: ObjectId) -> dict:
 
 async def delivered(ngo: dict, listing_id: ObjectId) -> dict:
     listing = await _my_listing(ngo, listing_id)
-    return await transition(
+    updated = await transition(
         get_db(),
         {"_id": listing["_id"], "status": "picked_up", "matched_ngo_id": ngo["_id"]},
         "delivered", ngo["user_id"],
         error="Only picked-up food can be marked delivered",
     )
+    await notify.on_delivered(updated, ngo)
+    return updated
 
 
 async def route(ngo: dict) -> dict:

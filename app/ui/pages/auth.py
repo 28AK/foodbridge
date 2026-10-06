@@ -5,7 +5,7 @@ from pydantic import ValidationError
 
 from app.schemas import RegisterIn
 from app.services import accounts
-from app.ui import style
+from app.ui import layout, style
 from app.ui.components import location_picker
 from app.ui.runtime import run, try_run
 
@@ -27,33 +27,36 @@ def current_user() -> dict | None:
 
 def log_in(user: dict) -> None:
     st.session_state["user_id"] = str(user["_id"])
+    st.session_state["go_to_dashboard"] = True  # handled by streamlit_app.py after navigation is built
     st.rerun()
 
 
 def log_out() -> None:
     st.session_state.clear()
-    st.rerun()
+    st.toast("You've been logged out", icon="👋")
+    layout.go("home")
 
 
 def validation_message(exc: ValidationError) -> str:
     return "; ".join(e["msg"].removeprefix("Value error, ") for e in exc.errors())
 
 
-def home_page() -> None:
-    left, right = st.columns([1.15, 1], gap="large")
+def signin_page() -> None:
+    layout.page_head("Welcome", "Sign in to **FoodBridge**",
+                     "Donors list surplus food in under a minute. NGOs receive matched pickups near them.",
+                     art="tiffin")
+    left, right = st.columns([1, 1.25], gap="large")
     with left:
         style.html("""
-        <div class="fb-hero">
-          <h1>🍲 Surplus food shouldn't go to waste.</h1>
-          <p>FoodBridge connects restaurants, hotels, households and events with nearby NGOs,
-          shelters and community kitchens — using AI to check food freshness and match it
-          to the right place before it spoils.</p>
-          <div class="fb-features">
-            <div class="fb-feature"><b>📸 List surplus food</b><span>Photos auto-enhanced with OpenCV</span></div>
-            <div class="fb-feature"><b>🧠 AI freshness check</b><span>Dish, spoilage risk & pickup deadline</span></div>
-            <div class="fb-feature"><b>📍 Smart matching</b><span>Nearest NGO with capacity & demand</span></div>
-          </div>
-        </div>""")
+        <div class="fb-info"><h4>🍱 For donors</h4>
+          <p>Restaurants, hotels, caterers, events and households — snap a photo, and our AI checks the food
+          and finds the nearest NGO that can use it today.</p>
+          <h4>🏠 For NGOs & shelters</h4>
+          <p>Register once, get verified, and receive donations matched to your location, capacity and
+          daily demand — with a suggested pickup route.</p>
+          <h4>🔒 Your privacy</h4>
+          <p>Your address and phone number are shared only with the NGO that accepts your donation.</p></div>""")
+        st.write("")
         with st.expander("Demo accounts"):
             st.markdown(
                 "- **Donor:** `donor@foodbridge.local` / `demo1234`\n"

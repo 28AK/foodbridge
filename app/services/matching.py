@@ -15,6 +15,7 @@ from datetime import datetime, timedelta, timezone
 from pymongo.asynchronous.database import AsyncDatabase
 
 from app.db import LISTINGS, NGOS
+from app.services import notify
 from app.services.geo import HANDLING_MINUTES, travel_minutes
 
 MAX_RADIUS_KM = 15
@@ -147,7 +148,10 @@ async def match_listing(db: AsyncDatabase, listing: dict) -> dict | None:
                                          "ngo_id": best["ngo_id"]}},
         },
     )
-    return match if result.modified_count else None
+    if not result.modified_count:
+        return None
+    await notify.on_matched(listing, match)
+    return match
 
 
 async def release_match(db: AsyncDatabase, listing_id, ngo_id, reason: str) -> None:
